@@ -5,7 +5,15 @@ from django.utils import timezone
 class Todo(models.Model):
     title = models.CharField(max_length=100)
     details = models.TextField()
+    notes = models.CharField(max_length=255)
     date = models.DateTimeField(default=timezone.now)
     
+    def __str__(self):
+        return self.title
+    
+class CheckboxItem(models.Model):
+    title = models.CharField(max_length=200)
+    completed = models.BooleanField(default=False)
+
     def __str__(self):
         return self.title
