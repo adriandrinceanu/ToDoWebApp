@@ -3,8 +3,8 @@ from django.contrib import messages
 
 # import todo form and models
  
-from .forms import TodoForm
-from .models import Todo
+from .forms import TodoForm, CheckboxItemForm
+from .models import Todo, CheckboxItem
 
 # Create your views here.
 def index(request):
@@ -30,3 +30,22 @@ def remove(request, item_id):
     item.delete()
     messages.info(request, "item removed!")
     return redirect('todo')
+
+#
+#checkboxex
+#
+
+def checkboxex(request):
+    items = CheckboxItem.objects.all()
+    return render(request, 'todo/index.html', {'items': items})
+
+def add_checkbox(request):
+    if request.method == "POST":
+        checkbox = CheckboxItemForm(request.POST)
+        if checkbox.is_valid():
+            checkbox.save()
+            messages.info(request, "item added!")
+            return redirect('checkboxex')
+    else:
+        checkbox = CheckboxItemForm()
+    return render(request, 'todo/index.html', {'checkbox': checkbox})
