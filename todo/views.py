@@ -27,9 +27,6 @@ def index(request):
     return render(request, 'todo/index.html', page)
 
 
-
-
-
 ### function to remove item, it receive todo item_id as primary key from url ##
 def remove(request, item_id):
     item = Todo.objects.get(id=item_id)
@@ -38,5 +35,4 @@ def remove(request, item_id):
     return redirect('todo')
 
 #
-#checkboxex
-#
+#new view
