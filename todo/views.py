@@ -26,7 +26,7 @@ def index(request):
 
 ### function to remove item, it receive todo item_id as primary key from url ##
 def remove(request, item_id):
-    item = Todo.object.get(id=item_id)
+    item = Todo.objects.get(id=item_id)
     item.delete()
     messages.info(request, "item removed!")
     return redirect('todo')
