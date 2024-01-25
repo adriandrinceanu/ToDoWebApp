@@ -74,6 +74,22 @@ text-overflow: ellipsis;
                 </form>
             </div>
 
+            <div class="submit_form">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{checklist}}
+                    <center>
+                    <input type="submit" class="btn btn-default" value="submit" />
+                    </center>
+                </form>
+                <div class="card">
+                    {% for item in checklist_items %}
+                    {{ item.text }}
+                    {% endfor%}
+                </div>
+            </div>
+
+
         </div>
         <div class="col-8">
             {% for i in list %}
@@ -81,11 +97,9 @@ text-overflow: ellipsis;
                 <left><b>Titlu: {{i.title}}</b></left>
                 <hr/>
                 <b>Detalii: {{i.details}}</b>
-                
                 <hr/>
                 <b>Notes: {{i.notes}}</b>
-                <hr/>
-                data: {{i.date}}
+                <hr/>data: {{i.date}}
                 <hr/>
                 <br />
                 <br />

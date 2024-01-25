@@ -3,8 +3,8 @@ from django.contrib import messages
 
 # import todo form and models
  
-from .forms import TodoForm
-from .models import Todo
+from .forms import TodoForm, ChecklistItemForm
+from .models import Todo, ChecklistItem
 
 # Create your views here.
 def index(request):
@@ -36,3 +36,15 @@ def remove(request, item_id):
 
 #
 #new view
+
+def checklist(request):
+    if request.method == 'POST':
+        checklist = ChecklistItemForm(request.POST)
+        if checklist.is_valid():
+            checklist.save()
+            return redirect('checklist')
+    else:
+        checklist = ChecklistItemForm()
+
+    checklist_items = ChecklistItem.objects.order_by('completed', '-id')
+    return render(request, 'todo/index.html', {'checklist': checklist, 'checklist_items': checklist_items})
